@@ -146,33 +146,12 @@ if (loadingOverlay) {
 }
 
 // Form handling
-const form = document.querySelector('.form');
-if (form) {
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    // Add your form submission logic here
-  });
-}
+// ... existing code ...
+// const form = document.querySelector('.form');
+// ... existing code ..
 
 // Project modal handling
-const projectModal = document.querySelector('.project-details-modal');
-const projectModalCloseBtn = document.querySelector('.project-details-close');
 const projectModalItems = document.querySelectorAll('.project-item > a');
-
-if (projectModal && projectModalCloseBtn) {
-  projectModalCloseBtn.addEventListener('click', function () {
-    projectModal.classList.remove('active');
-    document.body.style.overflow = '';
-  });
-
-  projectModalItems.forEach(item => {
-    item.addEventListener('click', function (e) {
-      e.preventDefault();
-      projectModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
-  });
-}
 
 // Testimonials modal handling
 const testimonialsModal = document.querySelector('.testimonials-modal');
@@ -221,9 +200,6 @@ if (filterBtn.length > 0) {
   filterBtn[0].click();
 }
 
-// Enhanced scroll handling
-let lastScroll = 0;
-const navbar = document.querySelector('.navbar');
 
 window.addEventListener('scroll', () => {
   const currentScroll = window.pageYOffset;
@@ -350,7 +326,7 @@ filterButtons.forEach(button => {
 });
 
 // Interactive Project Showcases (Example: Modal)
-const projectItems = document.querySelectorAll('.project-item > a'); // Select the links within project items
+const projectLinks = document.querySelectorAll('.project-item > a'); // Select the links within project items
 
 // Get project modal elements
 const projectModalContainer = document.querySelector('[data-project-modal-container]');
@@ -378,15 +354,13 @@ const closeProjectModal = () => {
     projectModalContainer.classList.remove('active');
     document.body.style.overflow = ''; // Restore scrolling
 };
-
 // Add click event to all project items
-projectItems.forEach(item => {
+projectLinks.forEach(item => {
     item.addEventListener('click', (e) => {
         e.preventDefault(); // Prevent default link behavior
         openProjectModal(item);
     });
 });
-
 // Add click event to project modal close button and overlay
 projectModalCloseBtn.addEventListener('click', closeProjectModal);
 projectModalOverlay.addEventListener('click', closeProjectModal);
@@ -465,47 +439,6 @@ window.addEventListener('scroll', animateSkillBars);
 
 // Optional: Use Intersection Observer for better performance - this is generally preferred
 
-const skillObserverOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.5 // Trigger when 50% of the item is visible - Adjusted threshold
-};
-
-const skillObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-        const item = entry.target;
-        const progressFill = item.querySelector('.skill-progress-fill');
-        const skillLevel = item.querySelector('data').getAttribute('value');
-        const skillLevelPercentage = skillLevel * 10 + '%';
-        const percentageText = item.querySelector('.skill-percentage'); // Get the percentage text element
-
-        if (entry.isIntersecting) {
-            // Set the CSS variable for the fill width immediately
-            item.style.setProperty('--skill-level', skillLevelPercentage);
-
-            // Add the class to trigger fill animation and show percentage after a small delay
-            setTimeout(() => {
-                 item.classList.add('is-visible');
-                 // Set the left position of the percentage text to match the fill width
-                 if(percentageText) {
-                    percentageText.style.left = skillLevelPercentage;
-                 }
-                 console.log(`Animating ${skillLevel}/10 skill to ${skillLevelPercentage}`);
-            }, 10); // A very short delay (e.g., 10ms)
-           
-            // Optional: Unobserve after animation if you only want it to animate once
-            // observer.unobserve(item);
-        } else {
-             // Optional: reset animation if scrolling away
-             item.classList.remove('is-visible');
-             item.style.setProperty('--skill-level', '0%'); // Reset fill width
-              if(percentageText) {
-                 percentageText.style.left = '0%'; // Reset percentage text position
-              }
-        }
-    });
-}, skillObserverOptions);
-
 // Observe each skill item
 skillItems.forEach(item => skillObserver.observe(item));
 
@@ -537,7 +470,7 @@ const playSound = (audio) => {
 };
 
 // Add sound to project item click (opens modal)
-projectItems.forEach(item => {
+projectLinks.forEach(item => {
     item.addEventListener('click', (e) => {
         e.preventDefault();
         openProjectModal(item);
@@ -678,10 +611,7 @@ document.querySelectorAll('.skills-item').forEach(item => {
   skillObserver.observe(item);
 });
 
-// Enhanced scroll handling with throttling
-let lastScroll = 0;
-const navbar = document.querySelector('.navbar');
-let ticking = false;
+
 
 window.addEventListener('scroll', () => {
   if (!ticking) {
@@ -714,4 +644,4 @@ window.addEventListener('load', () => {
       }, { once: true });
     }, 500);
   }
-});
+})
