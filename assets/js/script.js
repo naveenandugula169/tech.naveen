@@ -362,8 +362,12 @@ projectLinks.forEach(item => {
     });
 });
 // Add click event to project modal close button and overlay
-projectModalCloseBtn.addEventListener('click', closeProjectModal);
-projectModalOverlay.addEventListener('click', closeProjectModal);
+if (projectModalCloseBtn) {
+  projectModalCloseBtn.addEventListener('click', closeProjectModal);
+}
+if (projectModalOverlay) {
+  projectModalOverlay.addEventListener('click', closeProjectModal);
+}
 
 // Add JavaScript for the loading overlay
 window.addEventListener('load', () => {
@@ -479,15 +483,18 @@ projectLinks.forEach(item => {
 });
 
 // Add sound to project modal close button and overlay
-projectModalCloseBtn.addEventListener('click', () => {
-    closeProjectModal();
-    playSound(modalCloseSound); // Play sound on modal close
-});
-
-projectModalOverlay.addEventListener('click', () => {
-    closeProjectModal();
-    playSound(modalCloseSound); // Play sound on modal close
-});
+if (projectModalCloseBtn) {
+  projectModalCloseBtn.addEventListener('click', () => {
+      closeProjectModal();
+      playSound(modalCloseSound); // Play sound on modal close
+  });
+}
+if (projectModalOverlay) {
+  projectModalOverlay.addEventListener('click', () => {
+      closeProjectModal();
+      playSound(modalCloseSound); // Play sound on modal close
+  });
+}
 
 // You can add sounds to other interactions as well, e.g., navbar clicks, form submission, etc.
 
