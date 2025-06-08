@@ -117,7 +117,7 @@ const form = document.querySelector("[data-form]");
 const formInputs = document.querySelectorAll("[data-form-input]");
 const formBtn = document.querySelector("[data-form-btn]");
 
-// add event to all form input field
+// add event to all form input field for validation
 for (let i = 0; i < formInputs.length; i++) {
   formInputs[i].addEventListener("input", function () {
 
@@ -130,6 +130,29 @@ for (let i = 0; i < formInputs.length; i++) {
 
   });
 }
+
+// Handle form submission
+form.addEventListener("submit", function (event) {
+  event.preventDefault(); // Prevent default form submission
+
+  // Collect form data (for potential backend use)
+  const formData = new FormData(form);
+  const name = formData.get('fullname');
+  const email = formData.get('email');
+  const message = formData.get('message');
+
+  // Here you would typically send this data to a backend server
+  // using fetch() or XMLHttpRequest to handle the email sending.
+  // Since we don't have a backend setup here, we'll just simulate success.
+
+  // Simulate sending and show success message
+  // In a real application, this would be inside the fetch().then() callback
+  setTimeout(() => {
+    alert("Message sent successfully!"); // Simple pop-up
+    form.reset(); // Clear the form
+    formBtn.setAttribute("disabled", ""); // Disable button after sending
+  }, 500); // Simulate a small delay
+});
 
 
 
